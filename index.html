@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101024">
+<title>Imperio Digital IA | Agentes virtuales</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#f6f5ff;background:#0b0b1c}*{box-sizing:border-box}body{margin:0}header{padding:22px 5%;border-bottom:1px solid #34344d;display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{font-size:19px;font-weight:900;letter-spacing:.5px}.brand span{color:#b69aff}header a,.btn{background:#7c4dff;color:white;border:0;border-radius:12px;padding:12px 16px;text-decoration:none;font-weight:700;cursor:pointer}main{max-width:1040px;margin:auto;padding:30px 18px}h1{font-size:clamp(30px,6vw,55px);line-height:1.1;margin:15px 0}h1 span{color:#b69aff}p{color:#c5c3da;line-height:1.55}.tag{color:#bdaaff;font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:2px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}.card,.chat{background:#17172e;border:1px solid #34344d;border-radius:20px;padding:20px}.card h3{margin:10px 0}.card button{width:100%;margin-top:12px}.price{font-size:25px;font-weight:800;color:#c5afff}.chat{max-width:720px;margin:30px auto}.chat-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.messages{height:300px;overflow:auto;background:#0d0d21;border-radius:12px;padding:15px;margin:15px 0;display:flex;flex-direction:column;gap:10px}.bubble{padding:11px 13px;border-radius:13px;max-width:90%;white-space:pre-wrap;overflow-wrap:anywhere}.bot{background:#30284d;align-self:flex-start}.user{background:#6040bb;align-self:flex-end}.chat form{display:flex;gap:8px}.chat input{min-width:0;flex:1;background:#252540;border:1px solid #5c567b;border-radius:10px;color:white;padding:13px;font-size:16px}.secondary{display:inline-block;margin-top:12px;color:#d9ccff}footer{text-align:center;padding:30px 15px;color:#9996b5;font-size:13px}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #e2d4ff;outline-offset:2px}
+</style>
+</head>
+<body>
+<header><div class="brand">👑 IMPERIO <span>DIGITAL IA</span></div><a href="#demo">Probar agente</a></header>
+<main>
+<section><div class="tag">Automatización para negocios</div><h1>Tu negocio, atendido por <span>agentes virtuales</span></h1><p>Construimos tu presencia. Impulsamos tu marca. Prueba nuestras demostraciones de atención, ventas y citas.</p><a class="btn" href="#agentes">Explorar agentes</a></section>
+<section id="agentes"><h2>Catálogo de agentes</h2><div class="cards">
+<article class="card"><div>🛍️</div><h3>Agente de ventas</h3><p>Responde preguntas sobre servicios, precios y contratación.</p><div class="price">Desde $499/mes</div><button class="btn" data-agent="ventas">Probar ventas</button></article>
+<article class="card"><div>💬</div><h3>Atención al cliente</h3><p>Resuelve preguntas frecuentes y orienta a tus clientes.</p><div class="price">Cotización</div><button class="btn" data-agent="soporte">Probar atención</button></article>
+<article class="card"><div>📅</div><h3>Agente de citas</h3><p>Recibe solicitudes de cita y deriva al responsable.</p><div class="price">Cotización</div><button class="btn" data-agent="citas">Probar citas</button></article>
+</div></section>
+<section id="demo" class="chat" aria-label="Demostración de chat"><div class="chat-head"><div><strong id="agentTitle">Agente de ventas</strong><p style="margin:3px 0;font-size:13px">Demostración con respuestas programadas</p></div><span aria-hidden="true">🟢</span></div><div id="messages" class="messages" role="log" aria-live="polite"></div><form id="chatForm"><input id="messageInput" placeholder="Escribe tu pregunta..." maxlength="500" autocomplete="off" aria-label="Tu mensaje" required><button class="btn" type="submit">Enviar</button></form><a class="secondary" id="whatsappLink" target="_blank" rel="noopener noreferrer" href="#">Continuar por WhatsApp ↗</a><p style="font-size:12px">No escribas contraseñas, datos bancarios ni información sensible. Este chat no guarda ni envía mensajes a un servidor.</p></section>
+</main><footer>© Imperio Digital IA · MVP demostrativo · La atención automática por WhatsApp aún no está habilitada.</footer>
+<script>
+'use strict';
+// CAMBIA ESTE NÚMERO por tu WhatsApp Business, con clave de país y sin + ni espacios.
+const WHATSAPP_NUMBER = '528100000000';
+const agents = {
+ ventas:{name:'Agente de ventas',hello:'¡Hola! Soy el asistente de demostración de Imperio Digital IA. Puedes preguntarme por precios, servicios o cómo contratar.',answer(q){if(/precio|costo|cu[aá]nto|plan/i.test(q))return 'Nuestro plan de lanzamiento empieza desde $499 MXN al mes. El alcance y los límites de uso se acuerdan antes de contratar.';if(/contrat|compr|pagar|adquir/i.test(q))return 'Puedes solicitar información mediante el enlace de WhatsApp que aparece debajo del chat.';if(/servicio|agente|ofrec|venden/i.test(q))return 'Ofrecemos agentes para ventas, atención al cliente y recepción de solicitudes de citas.';return 'Puedo orientarte sobre precios, servicios y contratación. Para una consulta específica, utiliza el enlace de WhatsApp.';}},
+ soporte:{name:'Atención al cliente',hello:'¡Hola! Soy el asistente de atención. Pregúntame por horarios, funcionamiento o contacto.',answer(q){if(/horario|abren|atienden/i.test(q))return 'La disponibilidad de atención humana se confirma directamente por WhatsApp.';if(/funcion|chat|autom[aá]tic/i.test(q))return 'Los agentes responden consultas frecuentes en el sitio web. Esta demostración utiliza reglas, no inteligencia artificial generativa.';if(/contact|persona|humano|asesor/i.test(q))return 'Puedes contactar a una persona desde el botón de WhatsApp.';return 'Puedo ayudarte con horarios, funcionamiento y contacto. ¿Qué deseas saber?';}},
+ citas:{name:'Agente de citas',hello:'¡Hola! Te ayudo a solicitar una cita. Dime qué servicio necesitas o pregunta cómo agendar.',answer(q){if(/cita|agenda|reserv|turno|fecha|hora/i.test(q))return 'Para solicitar una cita, abre WhatsApp con el enlace de abajo. Allí un asesor confirmará disponibilidad; esta demo no reserva horarios.';return 'Puedo orientarte para solicitar una cita. La disponibilidad se confirma con una persona por WhatsApp.';}}
+};
+let current='ventas';const messages=document.getElementById('messages');const title=document.getElementById('agentTitle');const input=document.getElementById('messageInput');const wa=document.getElementById('whatsappLink');
+function add(text,who){const div=document.createElement('div');div.className='bubble '+who;div.textContent=text;messages.appendChild(div);messages.scrollTop=messages.scrollHeight;}
+function updateWA(){const msg='Hola, me interesa conocer el servicio '+agents[current].name+' de Imperio Digital IA.';wa.href='https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(msg);}
+function chooseAgent(id){if(!Object.hasOwn(agents,id))return;current=id;title.textContent=agents[id].name;messages.replaceChildren();add(agents[id].hello,'bot');updateWA();document.getElementById('demo').scrollIntoView({behavior:'smooth'});}
+document.querySelectorAll('[data-agent]').forEach(b=>b.addEventListener('click',()=>chooseAgent(b.dataset.agent)));
+document.getElementById('chatForm').addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(!q)return;add(q,'user');input.value='';add(agents[current].answer(q),'bot');input.focus();});
+chooseAgent('ventas');
+</script>
+</body></html>
